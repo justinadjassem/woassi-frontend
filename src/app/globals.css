@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens woassi
+   --------------------------------------------------------------------------
+   Deux thèmes partagent les mêmes rôles sémantiques :
+     - site vitrine (par défaut) : encre bleu nuit sur fond froid
+     - app commerçant (.theme-app) : neutres quasi noirs sur gris clair
+   Les composants ne consomment que les rôles (fg, canvas, line…), jamais les
+   valeurs brutes. Tous les couples texte/fond ci-dessous sont vérifiés
+   WCAG 2.2 AA (4,5:1 texte courant, 3:1 grands titres et composants).
+   ========================================================================== */
+
+:root,
+.theme-site {
+  --canvas: #f7fbfc;
+  --surface-muted: #f2f6f7;
+  --fg: #0e1d2b;
+  --fg-muted: #3a4a55; /* 8,8:1 sur canvas */
+  --fg-subtle: #5b6b75; /* 5,3:1 sur canvas */
+  --fg-accent: #6f7f89; /* 4,0:1 : réservé aux grands titres (≥ 24px gras) */
+  --fg-inverse-muted: #c9d6db;
+  --fg-inverse-subtle: #9fb0b9;
+  --line: #e3eaee;
+  --line-strong: #cbd6dc;
+  --line-inverse: #22323f;
+  --control: #7f8f99; /* 3,3:1 : contour des champs de saisie */
+  --focus-ring: var(--fg);
+}
+
+.theme-app {
+  --canvas: #f2f2f7;
+  --surface-muted: #f2f2f7;
+  --fg: #111113;
+  --fg-muted: #4b4b52; /* 8,6:1 sur blanc */
+  --fg-subtle: #5f5f66; /* 5,7:1 sur canvas */
+  --fg-accent: #66666d; /* 5,1:1 sur canvas */
+  --fg-inverse-muted: #d4d4d8;
+  --fg-inverse-subtle: #a1a1a8;
+  --line: #e5e5ea;
+  --line-strong: #d4d4d8;
+  --line-inverse: #2a2a2e;
+  --control: #8e8e96; /* 3,3:1 */
+  --focus-ring: var(--fg);
+}
+
+/* Sur fond sombre, l'anneau de focus passe en clair (WCAG 2.4.7 / 1.4.11). */
+.on-dark {
+  --focus-ring: #ffffff;
+}
+
+@theme {
+  /* La palette Tailwind par défaut est retirée : seuls les tokens existent.
+     Doit rester le premier bloc @theme du fichier. */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-surface: #ffffff;
+
+  /* Marque */
+  --color-ink: #0e1d2b;
+  --color-ink-soft: #1f3d47;
+  --color-lime: #cde77f;
+  --color-lime-soft: #e9f3cb;
+  --color-on-lime: #24330a; /* 9,9:1 sur lime */
+  --color-sun: #ffd75e;
+  --color-on-sun: #3f3200; /* 9,1:1 sur sun */
+  --color-lilac: #d8ccff;
+  --color-on-lilac: #2a1f55; /* 9,8:1 sur lilac */
+  --color-coral: #ff8a5b;
+
+  /* États : texte (≥ 5,2:1 sur blanc), point, fond et contour */
+  --color-warning: #a8480e;
+  --color-warning-dot: #e8590c;
+  --color-warning-soft: #fff7f1;
+  --color-warning-line: #f6dcc8;
+  --color-info: #1d5f8a;
+  --color-info-dot: #2b83c0;
+  --color-info-soft: #f3f8fc;
+  --color-info-line: #d3e6f3;
+  --color-success: #1e6b3f;
+  --color-success-dot: #2f9e5b;
+  --color-success-strong: #1e8a4c;
+  --color-success-soft: #e3f4ea;
+  --color-success-line: #d4ebdc;
+  --color-alert: #c2410c; /* 5,2:1 avec du texte blanc */
+  --color-link: #4a36c9; /* 7,1:1 sur canvas app */
+
+  /* Pastilles d'initiales sur fond sombre */
+  --color-avatar-1: #3a3a40;
+  --color-avatar-2: #4a4a52;
+
+  /* Teintes des cartes de l'aperçu (app) */
+  --color-tint-violet: #eeebfb;
+  --color-tint-violet-strong: #dcd6f7;
+  --color-tint-orange: #fceee3;
+  --color-tint-blue: #e7f1f8;
+  --color-tint-green: #e8f3ec;
+
+  /* Échelle typographique : rem uniquement, titres fluides bornés. */
+  --text-display-2xl: clamp(2.625rem, 1.55rem + 4.6vw, 5rem);
+  --text-display-2xl--line-height: 1.02;
+  --text-display-2xl--letter-spacing: -0.045em;
+  --text-display-xl: clamp(2.25rem, 1.6rem + 2.9vw, 4rem);
+  --text-display-xl--line-height: 1.04;
+  --text-display-xl--letter-spacing: -0.045em;
+  --text-display-lg: clamp(2rem, 1.55rem + 2vw, 3.25rem);
+  --text-display-lg--line-height: 1.06;
+  --text-display-lg--letter-spacing: -0.04em;
+  --text-display-md: clamp(1.875rem, 1.55rem + 1.45vw, 2.875rem);
+  --text-display-md--line-height: 1.08;
+  --text-display-md--letter-spacing: -0.04em;
+
+  /* Rayons au-delà de l'échelle par défaut (4xl = 2rem) */
+  --radius-5xl: 2.5rem;
+
+  /* Élévations */
+  --shadow-float: 0 1.5rem 3rem -1.75rem rgb(14 29 43 / 0.45);
+  --shadow-float-strong: 0 3rem 5.5rem -2.5rem rgb(14 29 43 / 0.55);
+  --shadow-control: 0 1px 2px rgb(17 17 19 / 0.08);
+}
+
+/* Déclarés après la remise à zéro de la palette ci-dessus, sinon elle les efface. */
+@theme inline {
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Rôles sémantiques, dépendants du thème */
+  --color-canvas: var(--canvas);
+  --color-surface-muted: var(--surface-muted);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-accent: var(--fg-accent);
+  --color-fg-inverse-muted: var(--fg-inverse-muted);
+  --color-fg-inverse-subtle: var(--fg-inverse-subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-inverse: var(--line-inverse);
+  --color-control: var(--control);
+}
+
+/* Petit intitulé en capitales (dates, catégories, en-têtes de colonnes). */
+@utility eyebrow {
+  font-size: var(--text-xs);
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* Conteneur de page : largeur max 1240px + gouttières. */
+@utility container-page {
+  width: 100%;
+  max-width: 77.5rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+@layer base {
+  html {
+    /* Les ancres et éléments focalisés ne passent ni sous le header collant du
+       site (≈ 4,3rem compacté) ni sous la barre fixe mobile de l'app
+       (WCAG 2.4.11 Focus non masqué). */
+    scroll-padding-block: 4.5rem 6rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--canvas);
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Focus clavier toujours visible : 3px, contraste ≥ 3:1 (WCAG 2.4.7, 2.4.13). */
+  :focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* La cible du lien d'évitement reçoit le focus sans anneau décoratif. */
+  main:focus {
+    outline: none;
+  }
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* WCAG 2.3.3 : aucune animation imposée si l'utilisateur les réduit. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Texte long des pages légales : mesure ~65 caractères, interligne 1,7. */
+  .prose-legal p,
+  .prose-legal li {
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--fg-muted);
+  }
+
+  .prose-legal ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .prose-legal strong {
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  .prose-legal a {
+    color: var(--fg);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
